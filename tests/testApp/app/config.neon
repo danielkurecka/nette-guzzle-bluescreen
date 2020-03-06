@@ -1,0 +1,13 @@
+application:
+	mapping:
+		*: Daku\Nette\Guzzle\Tests\TestApp\*Presenter
+
+services:
+	router: Nette\Application\Routers\SimpleRouter('Homepage:default')
+
+extensions:
+	guzzleBluescreen: Daku\Nette\Guzzle\GuzzleBlueScreenExtension
+
+guzzleBluescreen:
+#	maxBodyLength: 20
+#	prettyPrint: true
