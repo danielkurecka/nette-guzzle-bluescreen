@@ -9,5 +9,5 @@ extensions:
 	guzzleBluescreen: Daku\Nette\Guzzle\GuzzleBlueScreenExtension
 
 guzzleBluescreen:
-#	maxBodyLength: 20
-#	prettyPrint: true
+#	maxBodyLength: 0.1
+#	prettyPrint: false

@@ -12,8 +12,8 @@ use Psr\Http\Message\MessageInterface;
 class GuzzleBlueScreenExtension extends CompilerExtension
 {
 
-	/** @var int The maximum body length that will be logged, if exceeded it will be truncted. */
-	public static $maxBodyLength = 100 * 1024;
+	/** @var int Max body lenght in kB, if exceeded it will be truncated. */
+	public static $maxBodyLength = 100;
 
 	public static $prettyPrint = true;
 
@@ -84,10 +84,12 @@ class GuzzleBlueScreenExtension extends CompilerExtension
 
 			} else {
 				$body->rewind();
+				$maxLength = self::$maxBodyLength * 1024;
 
-				if ($body->getSize() > self::$maxBodyLength) {
-					$content = $body->read(self::$maxBodyLength);
+				if ($body->getSize() > $maxLength) {
+					$content = $body->read($maxLength);
 					$truncated = true;
+
 				} else {
 					$content = $body->getContents();
 				}
