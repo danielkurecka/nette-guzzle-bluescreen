@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Daku\Nette\Guzzle;
 
+use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
 use Nette\DI\CompilerExtension;
 use Nette\PhpGenerator\ClassType;
@@ -39,9 +40,9 @@ class GuzzleBlueScreenExtension extends CompilerExtension
 
 	public static function renderException(?\Throwable $e)
 	{
-		if ($e instanceof RequestException) {
+		if ($e instanceof RequestException || $e instanceof ConnectException) {
 			$request = $e->getRequest();
-			$response = $e->getResponse();
+			$response = $e instanceof RequestException ? $e->getResponse() : null;
 			$panel = '<p><b data-tracy-ref="^+" class="tracy-toggle">Request headers:</b></p>' . self::formatHeaders($request);
 			$panel .= '<p><b data-tracy-ref="^+" class="tracy-toggle">Reqest body:</b></p>' . self::formatBody($request);
 			$panel .= '<p><b data-tracy-ref="^+" class="tracy-toggle">Response headers:</b></p>' . self::formatHeaders($response);
